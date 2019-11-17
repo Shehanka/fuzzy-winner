@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import firebase from './../config/firebase';
+import { Link } from 'react-router-dom';
 
 class Create extends Component {
   state = {};
@@ -8,7 +9,8 @@ class Create extends Component {
     super();
     this.ref = firebase.firestore().collection('todo');
     this.state = {
-      todo: ''
+      title: '',
+      description: ''
     };
   }
 
@@ -18,25 +20,27 @@ class Create extends Component {
     this.setState(state);
   };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const { title, description } = this.state;
 
-    this.ref.add({
-      title,
-      description,
-    }).then((docRef) => {
-      this.setState({
-        title: '',
-        description: ''
+    this.ref
+      .add({
+        title,
+        description
+      })
+      .then(docRef => {
+        this.setState({
+          title: '',
+          description: ''
+        });
+        this.props.history.push('/');
+      })
+      .catch(error => {
+        console.error('Error adding document: ', error);
       });
-      this.props.history.push("/")
-    })
-    .catch((error) => {
-      console.error("Error adding document: ", error);
-    });
-  }
+  };
 
   render() {
     return (
@@ -47,10 +51,40 @@ class Create extends Component {
           </div>
 
           <div className='panel-body'>
-            <h4><Link to='/' className='btn btn-primary' >Book List</Link></h4>
+            <h4>
+              <Link to='/' className='btn btn-primary'>
+                Book List
+              </Link>
+            </h4>
 
             <form onSubmit={this.onSubmit}>
-              
+              <div class='form-group'>
+                <label for='title'>Title:</label>
+                <input
+                  type='text'
+                  class='form-control'
+                  name='title'
+                  value={this.title}
+                  onChange={this.onChange}
+                  placeholder='Title'
+                />
+              </div>
+              <div class='form-group'>
+                <label for='description'>Description:</label>
+                <textArea
+                  class='form-control'
+                  name='description'
+                  onChange={this.onChange}
+                  placeholder='Description'
+                  cols='80'
+                  rows='3'
+                >
+                  {this.description}
+                </textArea>
+              </div>
+              <button type='submit' class='btn btn-success'>
+                Submit
+              </button>
             </form>
           </div>
         </div>

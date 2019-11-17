@@ -18,6 +18,26 @@ class Create extends Component {
     this.setState(state);
   };
 
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const { title, description } = this.state;
+
+    this.ref.add({
+      title,
+      description,
+    }).then((docRef) => {
+      this.setState({
+        title: '',
+        description: ''
+      });
+      this.props.history.push("/")
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+  }
+
   render() {
     return (
       <div className='container'>
@@ -26,7 +46,13 @@ class Create extends Component {
             <h3 className='panel-title'>Add ToDo</h3>
           </div>
 
-          <div className='panel-body'></div>
+          <div className='panel-body'>
+            <h4><Link to='/' className='btn btn-primary' >Book List</Link></h4>
+
+            <form onSubmit={this.onSubmit}>
+              
+            </form>
+          </div>
         </div>
       </div>
     );

@@ -43,7 +43,7 @@ class App extends Component {
       <div class='container'>
         <div class='panel panel-default'>
           <div class='panel-heading'>
-            <h3 class='panel-title'>BOARD LIST</h3>
+            <h3 class='panel-title'>To Do LIST</h3>
           </div>
           <div class='panel-body'>
             <h4>
@@ -56,7 +56,6 @@ class App extends Component {
                 <tr>
                   <th>Title</th>
                   <th>Description</th>
-                  <th>Author</th>
                 </tr>
               </thead>
               <tbody>
@@ -66,7 +65,6 @@ class App extends Component {
                       <Link to={`/show/${board.key}`}>{board.title}</Link>
                     </td>
                     <td>{board.description}</td>
-                    <td>{board.author}</td>
                   </tr>
                 ))}
               </tbody>

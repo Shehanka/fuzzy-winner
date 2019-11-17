@@ -59,12 +59,12 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.boards.map(board => (
+                {this.state.todos.map(todo => (
                   <tr>
                     <td>
-                      <Link to={`/show/${board.key}`}>{board.title}</Link>
+                      <Link to={`/show/${todo.key}`}>{todo.title}</Link>
                     </td>
-                    <td>{board.description}</td>
+                    <td>{todo.description}</td>
                   </tr>
                 ))}
               </tbody>

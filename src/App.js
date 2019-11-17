@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import firebase from './config/firebase';
 import { Link } from 'react-router-dom';
 
@@ -55,18 +55,18 @@ class App extends Component {
 
   render() {
     return (
-      <div class='container'>
-        <div class='panel panel-default'>
-          <div class='panel-heading'>
-            <h3 class='panel-title'>To Do LIST</h3>
+      <div className='container'>
+        <div className='panel panel-default'>
+          <div className='panel-heading'>
+            <h3 className='panel-title'>To Do LIST</h3>
           </div>
-          <div class='panel-body'>
+          <div className='panel-body'>
             <h4>
-              <Link to='/create' class='btn btn-primary'>
+              <Link to='/create' className='btn btn-primary'>
                 Add Board
               </Link>
             </h4>
-            <table class='table table-stripe'>
+            <table className='table table-stripe'>
               <thead>
                 <tr>
                   <th>Title</th>
@@ -75,14 +75,16 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.todos.map(todo => (
+                {this.state.todos.map((todo, i) => (
                   <tr>
                     <td>
                       <Link to={`/show/${todo.key}`}>{todo.title}</Link>
                     </td>
                     <td>{todo.description}</td>
                     <td>
+                      <h2>{i}</h2>
                       <button
+                        key={i}
                         className='btn btn-danger'
                         onClick={this.delete.bind(this, todo.key)}
                       >
@@ -94,6 +96,12 @@ class App extends Component {
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div className='container'>
+          <Link to={'/users'} className='btn btn-success'>
+            View Users
+          </Link>
         </div>
       </div>
     );

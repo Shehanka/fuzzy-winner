@@ -38,6 +38,21 @@ class App extends Component {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
 
+  delete(id) {
+    firebase
+      .firestore()
+      .collection('todo')
+      .doc(id)
+      .delete()
+      .then(() => {
+        console.log('Document successfully deleted!');
+        this.props.history.push('/');
+      })
+      .catch(error => {
+        console.error('Error removing document: ', error);
+      });
+  }
+
   render() {
     return (
       <div class='container'>
@@ -56,6 +71,7 @@ class App extends Component {
                 <tr>
                   <th>Title</th>
                   <th>Description</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -65,6 +81,14 @@ class App extends Component {
                       <Link to={`/show/${todo.key}`}>{todo.title}</Link>
                     </td>
                     <td>{todo.description}</td>
+                    <td>
+                      <button
+                        className='btn btn-danger'
+                        onClick={this.delete.bind(this, todo.key)}
+                      >
+                        Remove
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

@@ -35,6 +35,7 @@ class Customer extends Component {
 
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    document.getElementById('btnSave').disabled = true;
   }
 
   onChange = e => {
@@ -65,18 +66,29 @@ class Customer extends Component {
   };
 
   onEdit = customer => {
-    const { name, company } = customer;
+    const { id, name, company } = customer;
 
-    console.log(name);
-    console.log(company);
+    this.setState({
+      id: id,
+      name: name,
+      company: company
+    });
 
-    // document.getElementById('name').val(name);
-
-    // this.setState({
-    //   name: name,
-    //   company: company
-    // });
+    document.getElementById('btnSubmit').disabled = true;
+    document.getElementById('btnSave').disabled = false;
   };
+
+  saveEdit() {
+    const { id, name, company } = this.state;
+
+    this.ref.doc(id).update({
+      name: name,
+      company: company
+    });
+
+    document.getElementById('btnSubmit').disabled = false;
+    document.getElementById('btnSave').disabled = true;
+  }
 
   onDelete = id => {
     this.ref
@@ -107,9 +119,9 @@ class Customer extends Component {
               className='form-control'
               placeholder='Name'
               onChange={this.onChange}
+              value={this.state.name}
             />
           </div>
-
           <div className='form-group'>
             <input
               type='text'
@@ -117,11 +129,19 @@ class Customer extends Component {
               className='form-control'
               placeholder='Company'
               onChange={this.onChange}
+              value={this.state.company}
             />
           </div>
-
-          <button type='submit' className='btn btn-primary'>
+          <button type='submit' className='btn btn-primary' id='btnSubmit'>
             Submit
+          </button>{' '}
+          <button
+            id='btnSave'
+            className='btn btn-primary'
+            onClick={this.saveEdit.bind(this)}
+            type='button'
+          >
+            Save
           </button>
         </form>
 

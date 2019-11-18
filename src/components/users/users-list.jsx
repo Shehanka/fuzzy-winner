@@ -64,6 +64,22 @@ class Users extends Component {
       });
   };
 
+  delete = id => {
+
+    console.log('Delete ID : ' + id);
+
+    firebase
+      .firestore()
+      .doc(id)
+      .delete()
+      .then(() => {
+        console.log('Document successfully deleted!');
+      })
+      .catch(error => {
+        console.error('error removing doc ' + error);
+      });
+  };
+
   render() {
     return (
       <div className='container'>
@@ -113,7 +129,11 @@ class Users extends Component {
                 <td>{user.email}</td>
                 <td>{user.type}</td>
                 <td>
-                  <button key={user.key} className='btn btn-danger'>
+                  <button
+                    key={user.key}
+                    className='btn btn-danger'
+                    onClick={this.delete.bind(this, this.state.id)}
+                  >
                     Delete
                   </button>
                 </td>

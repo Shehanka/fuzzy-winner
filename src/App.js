@@ -101,6 +101,9 @@ class App extends Component {
         <div className='container'>
           <Link to={'/users'} className='btn btn-success'>
             View Users
+          </Link>{' '}
+          <Link to={'/customers'} className='btn btn-success'>
+            View Customers
           </Link>
         </div>
       </div>

@@ -9,6 +9,7 @@ import Edit from './components/edit';
 import View from './components/view';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Users from './components/users/users-list';
+import Customer from './practise-1/components/customer';
 
 ReactDOM.render(
   <Router>
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Route exact path='/edit:id' component={Edit} />
       <Route exact path='/view:id' component={View} />
       <Route exact path='/users' component={Users} />
+      <Route exact path='/customers' component={Customer} />
     </div>
   </Router>,
   document.getElementById('root')

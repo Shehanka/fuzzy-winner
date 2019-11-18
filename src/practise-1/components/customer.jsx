@@ -82,7 +82,10 @@ class Customer extends Component {
     this.ref
       .doc(id)
       .delete()
-      .then({})
+      .then(() => {
+        console.log('Successfully deleted');
+        alert('Sucess');
+      })
       .catch(err => {
         console.error(err);
       });
@@ -135,7 +138,11 @@ class Customer extends Component {
 
             <tbody>
               {this.state.customers.map(customer => (
-                <TableRow customer={customer} onDelete={this.onDelete} onEdit={this.onEdit} />
+                <TableRow
+                  customer={customer}
+                  onDelete={this.onDelete}
+                  onEdit={this.onEdit}
+                />
               ))}
             </tbody>
           </table>

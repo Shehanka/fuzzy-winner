@@ -65,7 +65,6 @@ class Users extends Component {
   };
 
   delete = id => {
-
     console.log('Delete ID : ' + id);
 
     firebase
@@ -122,7 +121,7 @@ class Users extends Component {
           </thead>
 
           <tbody>
-            {this.state.users.map((user, i) => (
+            {this.state.users.map(user => (
               <tr>
                 <td>{user.key}</td>
                 <td>{user.username}</td>

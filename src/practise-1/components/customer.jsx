@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import firebase from './../../config/firebase';
+import TableRow from './table-row';
 
 class Customer extends Component {
   state = {};
@@ -20,7 +21,7 @@ class Customer extends Component {
     querySnapshot.forEach(element => {
       const { name, company } = element.data();
 
-      customers.push({ key: element.id, name, company });
+      customers.push({ id: element.id, name, company });
     });
 
     if (customers.length === 0) {
@@ -67,13 +68,14 @@ class Customer extends Component {
     const { name, company } = customer;
 
     console.log(name);
+    console.log(company);
 
-    document.getElementById('name').val(name);
+    // document.getElementById('name').val(name);
 
-    this.setState({
-      name: name,
-      company: company
-    });
+    // this.setState({
+    //   name: name,
+    //   company: company
+    // });
   };
 
   onDelete = id => {
@@ -133,20 +135,7 @@ class Customer extends Component {
 
             <tbody>
               {this.state.customers.map(customer => (
-                <tr>
-                  <td>{customer.key}</td>
-                  <td>{customer.name}</td>
-                  <td>{customer.company}</td>
-                  <td>
-                    <button className='btn btn-danger'>X</button>{' '}
-                    <button
-                      className='btn btn-success'
-                      onClick={this.onEdit.bind(this, customer)}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
+                <TableRow customer={customer} onDelete={this.onDelete} onEdit={this.onEdit} />
               ))}
             </tbody>
           </table>

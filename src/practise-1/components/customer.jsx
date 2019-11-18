@@ -145,6 +145,7 @@ class Customer extends Component {
           </button>
         </form>
 
+        <br />
         <div className='container'>
           <table className='table table-stripe'>
             <thead>
